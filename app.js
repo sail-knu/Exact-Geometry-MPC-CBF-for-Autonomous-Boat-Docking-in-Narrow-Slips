@@ -40,24 +40,24 @@ const SCENARIOS = [
 
 const OUTCOMES = {
   "S1-fairway-g1.0": {
-    circle: "deadlock", ellipse: "dock 11.5 s", "3disc": "dock 10.0 s",
-    "6disc": "dock 14.0 s", "polygon-dc": "dock 9.0 s", "polygon-cbf": "dock 9.0 s",
+    circle: "deadlock", ellipse: "dock 14.0 s", "3disc": "dock 11.5 s",
+    "6disc": "dock 11.0 s", "polygon-dc": "dock 16.0 s", "polygon-cbf": "dock 10.5 s",
   },
   "S2-aligned-g1.0": {
-    circle: "deadlock", ellipse: "deadlock", "3disc": "dock 12.0 s",
-    "6disc": "dock 11.0 s", "polygon-dc": "dock 14.0 s", "polygon-cbf": "dock 10.5 s",
+    circle: "deadlock", ellipse: "deadlock", "3disc": "dock 13.0 s",
+    "6disc": "dock 10.5 s", "polygon-dc": "dock 11.0 s", "polygon-cbf": "dock 11.0 s",
   },
   "S3-aligned-g0.5": {
-    circle: "deadlock", ellipse: "dock 19.0 s", "3disc": "deadlock",
-    "6disc": "dock 14.5 s", "polygon-dc": "dock 10.0 s", "polygon-cbf": "dock 10.5 s",
+    circle: "deadlock", ellipse: "dock 14.0 s", "3disc": "deadlock",
+    "6disc": "dock 14.5 s", "polygon-dc": "dock 10.0 s", "polygon-cbf": "dock 11.0 s",
   },
   "S4-aligned-g0.25": {
     circle: "deadlock", ellipse: "deadlock", "3disc": "deadlock",
-    "6disc": "deadlock", "polygon-dc": "dock 12.0 s", "polygon-cbf": "dock 11.0 s",
+    "6disc": "deadlock", "polygon-dc": "dock 14.0 s", "polygon-cbf": "dock 13.5 s",
   },
   "S5-hard-g0.35": {
     circle: "deadlock", ellipse: "deadlock", "3disc": "deadlock",
-    "6disc": "deadlock", "polygon-dc": "dock 10.0 s", "polygon-cbf": "dock 11.0 s",
+    "6disc": "deadlock", "polygon-dc": "dock 9.5 s", "polygon-cbf": "dock 9.5 s",
   },
 };
 
@@ -138,21 +138,19 @@ function drawBoatPanel() {
   const psi = (thetaDeg * Math.PI) / 180;
 
   boatCtx.clearRect(0, 0, w, h);
-  boatCtx.fillStyle = "#0b0b0b";
-  boatCtx.fillRect(0, 0, w, h);
-  const grd = boatCtx.createRadialGradient(cx, cy, 16, cx, cy, scale * 2.5);
-  grd.addColorStop(0, "#151515");
-  grd.addColorStop(1, "#0b0b0b");
+  const grd = boatCtx.createRadialGradient(cx, cy, 20, cx, cy, scale * 2.5);
+  grd.addColorStop(0, "#f4f6f8");
+  grd.addColorStop(1, "#e8ecf0");
   boatCtx.fillStyle = grd;
   boatCtx.fillRect(0, 0, w, h);
 
-  boatCtx.strokeStyle = "rgba(118,185,0,0.22)";
+  boatCtx.strokeStyle = "rgba(0,0,0,0.08)";
   boatCtx.lineWidth = 1;
   boatCtx.beginPath();
   boatCtx.arc(cx, cy, scale * 1.85, 0, Math.PI * 2);
   boatCtx.stroke();
-  boatCtx.fillStyle = "#a3a3a3";
-  boatCtx.font = "600 12px Inter, sans-serif";
+  boatCtx.fillStyle = "#6e6e73";
+  boatCtx.font = "500 12px -apple-system, BlinkMacSystemFont, sans-serif";
   boatCtx.textAlign = "center";
   boatCtx.fillText("bow →", cx + Math.cos(psi) * scale * 2.05, cy - Math.sin(psi) * scale * 2.05);
 
@@ -175,14 +173,14 @@ function drawBoatPanel() {
   }
 
   drawPolygon(boatCtx, rotatePoints(data.hull, psi), scale, cx, cy, {
-    fill: "#1c1c1c",
-    stroke: "#76b900",
-    width: 1.6,
+    fill: "#1d1d1f",
+    stroke: "#1d1d1f",
+    width: 1.2,
   });
 
   const hx = cx + Math.cos(psi) * scale * 1.55;
   const hy = cy - Math.sin(psi) * scale * 1.55;
-  boatCtx.fillStyle = "#76b900";
+  boatCtx.fillStyle = "#0071e3";
   boatCtx.beginPath();
   boatCtx.arc(hx, hy, 7, 0, Math.PI * 2);
   boatCtx.fill();
@@ -217,7 +215,7 @@ function drawMapPanel() {
   const key = nearestContourKey(thetaDeg);
 
   mapCtx.clearRect(0, 0, w, h);
-  mapCtx.fillStyle = "#0b0b0b";
+  mapCtx.fillStyle = "#eef1f4";
   mapCtx.fillRect(0, 0, w, h);
 
   for (const obs of data.obstacles) {
@@ -228,9 +226,9 @@ function drawMapPanel() {
       else mapCtx.lineTo(px, py);
     });
     mapCtx.closePath();
-    mapCtx.fillStyle = "#2a2a2a";
+    mapCtx.fillStyle = "#d2d2d7";
     mapCtx.fill();
-    mapCtx.strokeStyle = "#4a4a4a";
+    mapCtx.strokeStyle = "#86868b";
     mapCtx.lineWidth = 1;
     mapCtx.stroke();
   }
@@ -262,8 +260,8 @@ function drawMapPanel() {
     }
   }
 
-  mapCtx.fillStyle = "#a3a3a3";
-  mapCtx.font = "600 12px Inter, sans-serif";
+  mapCtx.fillStyle = "#6e6e73";
+  mapCtx.font = "500 12px -apple-system, BlinkMacSystemFont, sans-serif";
   mapCtx.fillText(`θ = ${Math.round(thetaDeg)}°`, 16, h - 16);
   const [ax, ay] = toPix(2.55, -1.95);
   mapCtx.fillText("x → slip", ax - 52, ay);
@@ -431,6 +429,6 @@ main().catch((err) => {
   console.error(err);
   document.getElementById("corridor").insertAdjacentHTML(
     "beforeend",
-    `<p style="color:#ff5c5c">Could not load corridor data. Run <code>python scripts/export_project_page_fig3.py</code>.</p>`
+    `<p style="color:#d70015">Could not load corridor data. Run <code>python scripts/export_project_page_fig3.py</code>.</p>`
   );
 });

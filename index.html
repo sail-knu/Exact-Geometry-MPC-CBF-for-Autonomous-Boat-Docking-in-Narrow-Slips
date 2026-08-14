@@ -5,14 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Exact-Geometry MPC-CBF for Autonomous Boat Docking</title>
   <meta name="description" content="Interactive feasible docking corridors and closed-loop scenario videos for exact-geometry NMPC-CBF docking in narrow slips." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <nav class="topbar">
-    <a class="logo" href="#">SAIL<span>Research</span></a>
+    <a class="logo" href="#">SAIL</a>
     <div class="top-links">
       <a href="#corridor">Corridor</a>
       <a href="#scenarios">Scenarios</a>
@@ -21,26 +18,22 @@
   </nav>
 
   <header class="hero">
-    <div class="hero-grid" aria-hidden="true"></div>
-    <div class="hero-inner">
-      <p class="eyebrow">Kongju National University · SAIL Lab</p>
-      <h1>Exact-Geometry MPC-CBF for Autonomous Boat Docking in Narrow Slips</h1>
-      <p class="lede">
-        Nonlinear MPC with a control-barrier constraint on the exact hull
-        polygon. Conservative footprints shrink the feasible corridor;
-        the exact geometry keeps it open.
-      </p>
-      <div class="hero-actions">
-        <a class="btn primary" href="#corridor">Explore the corridor</a>
-        <a class="btn ghost" href="#scenarios">Watch scenarios</a>
-      </div>
+    <p class="eyebrow">Kongju National University</p>
+    <h1>Exact-geometry docking,<br>in a slip that barely fits.</h1>
+    <p class="lede">
+      Nonlinear MPC with a control-barrier constraint on the true hull
+      polygon. Approximate footprints shrink the feasible corridor.
+      The exact geometry keeps it open.
+    </p>
+    <div class="hero-actions">
+      <a class="btn primary" href="#corridor">Explore the corridor</a>
+      <a class="btn ghost" href="#scenarios">Watch scenarios</a>
     </div>
   </header>
 
   <main>
     <section id="corridor" class="section">
       <div class="section-head">
-        <p class="kicker">Interactive</p>
         <h2>Where the vessel centre is still allowed to sit</h2>
         <p>
           At a fixed heading, each curve is the boundary of centre positions
@@ -72,11 +65,10 @@
 
     <section id="scenarios" class="section">
       <div class="section-head">
-        <p class="kicker">Closed loop</p>
-        <h2>Five docking scenarios, six controllers</h2>
+        <h2>Five docking scenarios,<br>six controllers.</h2>
         <p>
-          The same initial condition, compared side by side. Play / pause
-          keeps the grid in sync.
+          The same initial condition, compared side by side.
+          Play and pause keep the grid in sync.
         </p>
       </div>
 
