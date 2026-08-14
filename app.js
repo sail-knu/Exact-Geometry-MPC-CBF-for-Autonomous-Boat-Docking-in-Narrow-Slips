@@ -424,8 +424,10 @@ async function loadSweep() {
 
 function drawSweep(canvas, data) {
   const dpr = window.devicePixelRatio || 1;
-  const cssW = canvas.clientWidth || 920;
-  const cssH = Math.max(280, Math.round(cssW * 0.42));
+  const cssW = Math.min(canvas.clientWidth || 520, 520);
+  const cssH = Math.max(220, Math.round(cssW * 0.42));
+  canvas.style.width = `${cssW}px`;
+  canvas.style.height = `${cssH}px`;
   canvas.width = Math.round(cssW * dpr);
   canvas.height = Math.round(cssH * dpr);
   const ctx = canvas.getContext("2d");

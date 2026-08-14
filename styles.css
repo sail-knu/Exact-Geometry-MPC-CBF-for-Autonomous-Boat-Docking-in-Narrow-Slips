@@ -279,15 +279,19 @@ canvas:active { cursor: grabbing; }
 .badge-fail { color: var(--fail) !important; }
 
 .sweep-panel {
-  padding: 18px 18px 12px;
-  max-width: 720px;
+  padding: 14px 14px 10px;
+  width: min(520px, 100%);
   margin-left: auto;
   margin-right: auto;
+  overflow: hidden;
 }
 #sweep-canvas {
-  width: 100%;
-  height: auto;
   display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  height: auto;
+  aspect-ratio: 920 / 390;
 }
 
 footer {
