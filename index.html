@@ -11,7 +11,7 @@
   <nav class="topbar">
     <a class="logo" href="#">SAIL · Kongju National University</a>
     <div class="top-links">
-      <a href="#corridor">Corridor</a>
+      <a href="#feasible">Feasible space</a>
       <a href="#scenarios">Scenarios</a>
       <a href="#sweep">Sweep</a>
       <a href="https://github.com/sail-knu/Exact-Geometry-MPC-CBF-for-Autonomous-Boat-Docking-in-Narrow-Slips" target="_blank" rel="noopener">GitHub</a>
@@ -22,33 +22,38 @@
     <p class="eyebrow">SAIL Lab · Kongju National University</p>
     <h1>Exact-Geometry MPC-CBF for Autonomous Boat Docking in Narrow Slips</h1>
     <p class="lede">
-      How each hull approximation shrinks the feasible docking corridor,
-      plus synchronized closed-loop videos across five scenarios and six
-      controllers.
+      A real-time NMPC whose safety constraints are discrete-time control
+      barrier functions on the exact signed distance between the polygonal
+      hull and the berth. Enclosing circles, ellipses, and disc covers
+      shrink, and can empty, the orientation-dependent feasible docking
+      space; the exact polygon preserves it.
     </p>
     <div class="hero-actions">
-      <a class="btn primary" href="#corridor">Explore the corridor</a>
-      <a class="btn ghost" href="#scenarios">Watch scenarios</a>
+      <a class="btn primary" href="#feasible">Admissible region</a>
+      <a href="#scenarios" class="btn ghost">Closed-loop runs</a>
     </div>
   </header>
 
   <main>
-    <section id="corridor" class="section">
+    <section id="feasible" class="section">
       <div class="section-head">
-        <h2>Where the vessel centre is still allowed to sit</h2>
+        <h2>Orientation-dependent feasible docking space</h2>
         <p>
-          At a fixed heading, each curve is the boundary of centre positions
-          that keep that footprint inside a 1.10&nbsp;m slip with a 5&nbsp;cm
-          safety margin. A circle or disc cover inflates the hull, so the
-          corridor narrows—or vanishes. The exact polygon keeps the widest
-          feasible space. Drag the hull to change heading; the corridors
-          update with it.
+          For a footprint symmetric about the body axis, a pose with
+          clearance <em>d</em><sub>safe</sub> inside the slip must satisfy
+          |<em>y</em>| ≤ ½(<em>W</em><sub>slip</sub> − <em>w</em><sub>F</sub>(θ)) − <em>d</em><sub>safe</sub>,
+          a corridor in the lateral offset and the heading. The curves below
+          are the boundary of the admissible vessel-centre region inside a
+          1.10&nbsp;m slip at a fixed heading offset, evaluated with the
+          smooth clearance of each footprint. The enclosing circle does not
+          merely shrink this region: for a slender hull it empties it.
+          Drag the hull to vary θ.
         </p>
       </div>
 
       <div class="fig3-grid">
         <div class="panel boat-panel">
-          <div class="panel-label">Hull heading · drag to rotate</div>
+          <div class="panel-label">Heading offset θ · drag to rotate</div>
           <canvas id="boat-canvas" width="520" height="520" aria-label="Rotatable boat top view"></canvas>
           <div class="heading-readout">
             <span>θ = <strong id="theta-deg">0</strong>°</span>
@@ -57,7 +62,7 @@
         </div>
 
         <div class="panel map-panel">
-          <div class="panel-label">Feasible centre corridor · <span id="slip-label">1.10 m slip</span></div>
+          <div class="panel-label">Admissible vessel-centre region · <span id="slip-label">1.10 m slip</span></div>
           <canvas id="map-canvas" width="720" height="520" aria-label="Admissible centre map"></canvas>
           <div class="legend" id="model-legend"></div>
         </div>
@@ -66,10 +71,15 @@
 
     <section id="scenarios" class="section">
       <div class="section-head">
-        <h2>Closed-loop scenarios</h2>
+        <h2>Docking behaviour on representative scenarios</h2>
         <p>
-          Five representative cases from the paper. Compare every controller
-          on the same initial condition; play / pause keeps the grid in sync.
+          Five fixed scenarios isolate the closed-loop behaviour before the
+          randomized sweep: a fairway turn-in at <em>r</em><sub>gap</sub> = 1.0
+          (S1), two aligned approaches at <em>r</em><sub>gap</sub> = 1.0 and 0.5
+          (S2, S3), a near-bound aligned entry at
+          <em>r</em><sub>gap</sub> = 0.25 (S4), and a hard entry from the sweep
+          at <em>r</em><sub>gap</sub> = 0.35 (S5). Every controller is shown
+          from the same initial condition.
         </p>
       </div>
 
@@ -89,10 +99,13 @@
       <div class="section-head">
         <h2>Narrow-slip sweep</h2>
         <p>
-          Thirty randomized entries at each of ten slip widths.
-          Every controller shares the same horizon and cost; only the
-          footprint changes. Success collapses at the geometric bound
-          of that footprint.
+          The slip width is reduced from 2.475&nbsp;m
+          (<em>r</em><sub>gap</sub> = 3.5) to 0.688&nbsp;m
+          (<em>r</em><sub>gap</sub> = 0.25) over ten values, with the same
+          30 randomized entries at each width (1800 closed-loop runs).
+          All controllers use a uniform 10&nbsp;s horizon. Success of each
+          footprint collapses at its geometric bound
+          <em>W</em><sub>min</sub>(<em>F</em>).
         </p>
       </div>
       <div class="panel sweep-panel">

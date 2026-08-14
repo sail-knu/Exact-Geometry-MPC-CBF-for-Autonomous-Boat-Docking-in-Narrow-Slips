@@ -14,27 +14,27 @@ const SCENARIOS = [
   {
     id: "S1-fairway-g1.0",
     short: "S1",
-    blurb: "Fairway turn-in at r_gap = 1.0, start (−2, 2) m, surge 0.5 m/s.",
+    blurb: "S1: fairway turn-in at r_gap = 1.0, start (−2, 2) m, surge 0.5 m/s.",
   },
   {
     id: "S2-aligned-g1.0",
     short: "S2",
-    blurb: "Aligned approach at r_gap = 1.0, start (−2.4, 0.80) m from rest.",
+    blurb: "S2: aligned approach at r_gap = 1.0, start (−2.4, 0.80) m from rest.",
   },
   {
     id: "S3-aligned-g0.5",
     short: "S3",
-    blurb: "Aligned entry at r_gap = 0.5 with a modest heading offset.",
+    blurb: "S3: aligned entry at r_gap = 0.5.",
   },
   {
     id: "S4-aligned-g0.25",
     short: "S4",
-    blurb: "Near-bound aligned entry at r_gap = 0.25.",
+    blurb: "S4: near-bound aligned entry at r_gap = 0.25.",
   },
   {
     id: "S5-hard-g0.35",
     short: "S5",
-    blurb: "Hard randomized-sweep entry at r_gap = 0.35.",
+    blurb: "S5: hard entry drawn from the sweep at r_gap = 0.35.",
   },
 ];
 
@@ -523,8 +523,8 @@ async function main() {
 
 main().catch((err) => {
   console.error(err);
-  document.getElementById("corridor").insertAdjacentHTML(
+  document.getElementById("feasible").insertAdjacentHTML(
     "beforeend",
-    `<p style="color:#d70015">Could not load corridor data. Run <code>python scripts/export_project_page_fig3.py</code>.</p>`
+    `<p style="color:#d70015">Could not load the admissible-region data. Run <code>python scripts/export_project_page_fig3.py</code>.</p>`
   );
 });
