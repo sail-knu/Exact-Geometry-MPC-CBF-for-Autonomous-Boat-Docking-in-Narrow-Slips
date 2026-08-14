@@ -334,7 +334,7 @@ function wireBoatDrag() {
 }
 
 function videoSrc(scenarioId, controllerFile) {
-  return `videos/${scenarioId}__${controllerFile}.mp4`;
+  return `videos/${scenarioId}__${controllerFile}.mp4?v=20260814b`;
 }
 
 function buildScenarioUI() {
