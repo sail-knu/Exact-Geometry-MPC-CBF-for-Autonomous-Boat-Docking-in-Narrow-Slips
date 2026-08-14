@@ -278,7 +278,12 @@ canvas:active { cursor: grabbing; }
 .badge-ok { color: var(--ok) !important; }
 .badge-fail { color: var(--fail) !important; }
 
-.sweep-panel { padding: 18px 18px 12px; }
+.sweep-panel {
+  padding: 18px 18px 12px;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
 #sweep-canvas {
   width: 100%;
   height: auto;
