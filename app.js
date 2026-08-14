@@ -422,6 +422,22 @@ async function loadSweep() {
   window.addEventListener("resize", draw);
 }
 
+function spacedXTicks(widths, xOf, minGap) {
+  const sorted = [...widths].sort((a, b) => a - b);
+  const ticks = [sorted[0]];
+  for (let i = 1; i < sorted.length - 1; i += 1) {
+    if (xOf(sorted[i]) - xOf(ticks[ticks.length - 1]) >= minGap) {
+      ticks.push(sorted[i]);
+    }
+  }
+  const last = sorted[sorted.length - 1];
+  while (ticks.length && xOf(last) - xOf(ticks[ticks.length - 1]) < minGap) {
+    ticks.pop();
+  }
+  ticks.push(last);
+  return ticks;
+}
+
 function drawSweep(canvas, data) {
   const dpr = window.devicePixelRatio || 1;
   const cssW = Math.min(canvas.clientWidth || 520, 520);
@@ -432,7 +448,7 @@ function drawSweep(canvas, data) {
   canvas.height = Math.round(cssH * dpr);
   const ctx = canvas.getContext("2d");
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  const pad = { l: 52, r: 18, t: 18, b: 42 };
+  const pad = { l: 52, r: 22, t: 18, b: 46 };
   const w = cssW - pad.l - pad.r;
   const h = cssH - pad.t - pad.b;
   const xMin = Math.min(...data.widths);
@@ -443,7 +459,7 @@ function drawSweep(canvas, data) {
   ctx.clearRect(0, 0, cssW, cssH);
   ctx.strokeStyle = "rgba(0,0,0,0.08)";
   ctx.lineWidth = 1;
-  ctx.font = "12px -apple-system, BlinkMacSystemFont, sans-serif";
+  ctx.font = "11px -apple-system, BlinkMacSystemFont, sans-serif";
   ctx.fillStyle = "#6e6e73";
   for (const tick of [0, 25, 50, 75, 100]) {
     const y = yOf(tick);
@@ -454,11 +470,25 @@ function drawSweep(canvas, data) {
     ctx.textAlign = "right";
     ctx.fillText(`${tick}`, pad.l - 8, y + 4);
   }
+  const xTicks = spacedXTicks(data.widths, xOf, 40);
   ctx.textAlign = "center";
+  ctx.textBaseline = "top";
   for (const width of data.widths) {
-    ctx.fillText(width.toFixed(2), xOf(width), cssH - 16);
+    const x = xOf(width);
+    ctx.strokeStyle = "rgba(0,0,0,0.18)";
+    ctx.beginPath();
+    ctx.moveTo(x, pad.t + h);
+    ctx.lineTo(x, pad.t + h + 4);
+    ctx.stroke();
   }
-  ctx.fillText("slip width [m]", pad.l + w * 0.5, cssH - 2);
+  ctx.fillStyle = "#6e6e73";
+  ctx.strokeStyle = "rgba(0,0,0,0.08)";
+  for (const width of xTicks) {
+    ctx.fillText(width.toFixed(2), xOf(width), pad.t + h + 6);
+  }
+  ctx.font = "12px -apple-system, BlinkMacSystemFont, sans-serif";
+  ctx.fillText("slip width [m]", pad.l + w * 0.5, cssH - 14);
+  ctx.textBaseline = "alphabetic";
   ctx.save();
   ctx.translate(14, pad.t + h * 0.5);
   ctx.rotate(-Math.PI / 2);
