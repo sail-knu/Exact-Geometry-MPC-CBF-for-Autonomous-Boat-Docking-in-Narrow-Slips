@@ -216,7 +216,6 @@ function drawMapPanel() {
   const h = mapCanvas.height;
   const { toPix } = mapTransform();
   const key = nearestContourKey(thetaDeg);
-  const psi = (thetaDeg * Math.PI) / 180;
 
   mapCtx.clearRect(0, 0, w, h);
   mapCtx.fillStyle = "#eaf3f7";
@@ -238,7 +237,7 @@ function drawMapPanel() {
     mapCtx.stroke();
   }
 
-  // constrained region fill for polygon first
+  // admissible-centre boundaries at the current heading (Fig. 3)
   const contours = data.contours[key];
   for (const model of MODEL_ORDER) {
     if (!enabled[model] || !contours[model]) continue;
@@ -251,8 +250,9 @@ function drawMapPanel() {
         if (i === 0) mapCtx.moveTo(px, py);
         else mapCtx.lineTo(px, py);
       });
-      if (model === "polygon") {
-        mapCtx.closePath();
+      const closed = path.length > 3 &&
+        Math.hypot(path[0][0] - path.at(-1)[0], path[0][1] - path.at(-1)[1]) < 0.08;
+      if (model === "polygon" && closed) {
         mapCtx.fillStyle = hexAlpha(color, 0.14);
         mapCtx.fill();
       }
@@ -264,21 +264,11 @@ function drawMapPanel() {
     }
   }
 
-  // boat at origin for reference pose inside slip corridor
-  const originHull = rotatePoints(data.hull, psi).map(([x, y]) => [x, y]);
-  mapCtx.beginPath();
-  originHull.forEach(([x, y], i) => {
-    const [px, py] = toPix(x, y);
-    if (i === 0) mapCtx.moveTo(px, py);
-    else mapCtx.lineTo(px, py);
-  });
-  mapCtx.closePath();
-  mapCtx.fillStyle = "rgba(16,33,43,0.82)";
-  mapCtx.fill();
-
   mapCtx.fillStyle = "rgba(16,33,43,0.55)";
   mapCtx.font = "12px Sora, sans-serif";
-  mapCtx.fillText(`θ = ${thetaDeg.toFixed(0)}°`, 16, h - 16);
+  mapCtx.fillText(`θ = ${Math.round(thetaDeg)}°`, 16, h - 16);
+  const [ax, ay] = toPix(2.55, -1.95);
+  mapCtx.fillText("x → slip", ax - 52, ay);
 }
 
 function hexAlpha(hex, a) {
@@ -443,6 +433,6 @@ main().catch((err) => {
   console.error(err);
   document.getElementById("fig3").insertAdjacentHTML(
     "beforeend",
-    `<p style="color:#9b3b2d">Could not load Fig. 3 data. Run <code>python scripts/export_project_page_fig3.py</code>.</p>`
+    `<p style="color:#9b3b2d">Could not load corridor data. Run <code>python scripts/export_project_page_fig3.py</code>.</p>`
   );
 });
