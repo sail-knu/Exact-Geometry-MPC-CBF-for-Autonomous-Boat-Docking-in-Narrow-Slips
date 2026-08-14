@@ -60,9 +60,9 @@ a:hover { text-decoration: underline; }
 .top-links a:hover { opacity: 1; text-decoration: none; }
 
 .hero {
-  text-align: center;
-  padding: 92px 24px 72px;
-  max-width: 820px;
+  text-align: left;
+  padding: 80px 0 56px;
+  width: min(1120px, calc(100% - 40px));
   margin: 0 auto;
 }
 .eyebrow {
@@ -74,24 +74,24 @@ a:hover { text-decoration: underline; }
 }
 .hero h1 {
   margin: 0;
-  font-size: clamp(40px, 6.4vw, 64px);
+  max-width: 18ch;
+  font-size: clamp(36px, 5.2vw, 56px);
   font-weight: 600;
   letter-spacing: -0.025em;
-  line-height: 1.05;
+  line-height: 1.08;
 }
 .lede {
-  margin: 22px auto 0;
-  max-width: 34em;
+  margin: 20px 0 0;
+  max-width: 42em;
   font-size: 19px;
   line-height: 1.4;
   color: var(--muted);
 }
 .hero-actions {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
   gap: 12px;
-  margin-top: 32px;
+  margin-top: 28px;
 }
 
 .btn {
@@ -127,22 +127,22 @@ a:hover { text-decoration: underline; }
   padding: 36px 0 20px;
 }
 .section-head {
-  text-align: center;
+  text-align: left;
   max-width: 720px;
-  margin: 0 auto 36px;
+  margin: 0 0 28px;
 }
 .section-head h2 {
   margin: 0;
-  font-size: clamp(32px, 4.4vw, 48px);
+  font-size: clamp(28px, 3.6vw, 40px);
   font-weight: 600;
   letter-spacing: -0.022em;
-  line-height: 1.08;
+  line-height: 1.12;
 }
 .section-head p {
-  margin: 16px auto 0;
+  margin: 12px 0 0;
   color: var(--muted);
-  font-size: 19px;
-  line-height: 1.4;
+  font-size: 17px;
+  line-height: 1.47;
 }
 
 .fig3-grid {
@@ -213,7 +213,6 @@ canvas:active { cursor: grabbing; }
 
 .scenario-tabs {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
   gap: 8px;
   margin: 0 0 10px;
@@ -234,7 +233,6 @@ canvas:active { cursor: grabbing; }
   color: #fff;
 }
 .scenario-blurb {
-  text-align: center;
   margin: 0 0 18px;
   color: var(--muted);
   min-height: 1.4em;
@@ -242,7 +240,6 @@ canvas:active { cursor: grabbing; }
 }
 .transport {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 18px;
