@@ -293,6 +293,11 @@ canvas:active { cursor: grabbing; }
   height: auto;
   aspect-ratio: 920 / 390;
 }
+#sweep-legend > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 1em;
+}
 
 footer {
   margin-top: 72px;
