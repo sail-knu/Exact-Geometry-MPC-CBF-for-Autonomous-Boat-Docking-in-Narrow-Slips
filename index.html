@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Exact-Geometry MPC-CBF for Autonomous Boat Docking</title>
+  <meta name="description" content="Interactive Fig. 3 and closed-loop scenario videos for exact-geometry NMPC-CBF docking in narrow slips." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,700&family=Sora:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-water" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <p class="brand">SAIL · Kyungpook National University</p>
+      <h1>Exact-Geometry MPC-CBF for Autonomous Boat Docking in Narrow Slips</h1>
+      <p class="lede">
+        Interactive admissible-centre regions (Fig.&nbsp;3) and synchronized
+        closed-loop videos across five docking scenarios and six controllers.
+      </p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#fig3">Explore Fig.&nbsp;3</a>
+        <a class="btn ghost" href="#scenarios">Watch scenarios</a>
+        <a class="btn ghost" href="https://github.com/sail-knu/Exact-Geometry-MPC-CBF-for-Autonomous-Boat-Docking-in-Narrow-Slips" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="fig3" class="section fig3">
+      <div class="section-head">
+        <h2>Fig.&nbsp;3 · Admissible vessel-centre region</h2>
+        <p>
+          Drag the boat on the left to set heading. The right panel updates the
+          constrained centre region of each footprint inside a fixed 1.10&nbsp;m slip.
+        </p>
+      </div>
+
+      <div class="fig3-grid">
+        <div class="panel boat-panel">
+          <div class="panel-label">Heading · drag to rotate</div>
+          <canvas id="boat-canvas" width="520" height="520" aria-label="Rotatable boat top view"></canvas>
+          <div class="heading-readout">
+            <span>θ = <strong id="theta-deg">0</strong>°</span>
+            <input id="theta-slider" type="range" min="0" max="359" value="0" aria-label="Heading degrees" />
+          </div>
+        </div>
+
+        <div class="panel map-panel">
+          <div class="panel-label">Constrained centre region · <span id="slip-label">1.10 m slip</span></div>
+          <canvas id="map-canvas" width="720" height="520" aria-label="Admissible centre map"></canvas>
+          <div class="legend" id="model-legend"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="scenarios" class="section scenarios">
+      <div class="section-head">
+        <h2>Closed-loop scenarios</h2>
+        <p>
+          Five representative cases from the paper. Compare every controller on
+          the same initial condition; play / pause keeps the grid in sync.
+        </p>
+      </div>
+
+      <div class="scenario-tabs" role="tablist" aria-label="Scenarios" id="scenario-tabs"></div>
+      <p class="scenario-blurb" id="scenario-blurb"></p>
+
+      <div class="transport">
+        <button type="button" id="btn-play" class="btn primary">Play all</button>
+        <button type="button" id="btn-pause" class="btn ghost">Pause</button>
+        <button type="button" id="btn-restart" class="btn ghost">Restart</button>
+      </div>
+
+      <div class="video-grid" id="video-grid"></div>
+    </section>
+
+    <section class="section cite">
+      <div class="section-head">
+        <h2>Code &amp; citation</h2>
+        <p>
+          Source and assets for this page live in the
+          <a href="https://github.com/sail-knu/Exact-Geometry-MPC-CBF-for-Autonomous-Boat-Docking-in-Narrow-Slips">sail-knu project repository</a>.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>SAIL Lab · Kyungpook National University</p>
+  </footer>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>
