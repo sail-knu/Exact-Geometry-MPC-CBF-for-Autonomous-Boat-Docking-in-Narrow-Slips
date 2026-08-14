@@ -4,43 +4,57 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Exact-Geometry MPC-CBF for Autonomous Boat Docking</title>
-  <meta name="description" content="Interactive Fig. 3 and closed-loop scenario videos for exact-geometry NMPC-CBF docking in narrow slips." />
+  <meta name="description" content="Interactive feasible docking corridors and closed-loop scenario videos for exact-geometry NMPC-CBF docking in narrow slips." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,700&family=Sora:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <nav class="topbar">
+    <a class="logo" href="#">SAIL<span>Research</span></a>
+    <div class="top-links">
+      <a href="#corridor">Corridor</a>
+      <a href="#scenarios">Scenarios</a>
+      <a href="https://github.com/sail-knu/Exact-Geometry-MPC-CBF-for-Autonomous-Boat-Docking-in-Narrow-Slips" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </nav>
+
   <header class="hero">
-    <div class="hero-water" aria-hidden="true"></div>
+    <div class="hero-grid" aria-hidden="true"></div>
     <div class="hero-inner">
-      <p class="brand">SAIL · Kongju National University</p>
+      <p class="eyebrow">Kongju National University · SAIL Lab</p>
       <h1>Exact-Geometry MPC-CBF for Autonomous Boat Docking in Narrow Slips</h1>
       <p class="lede">
-        Interactive admissible-centre regions (Fig.&nbsp;3) and synchronized
-        closed-loop videos across five docking scenarios and six controllers.
+        Nonlinear MPC with a control-barrier constraint on the exact hull
+        polygon. Conservative footprints shrink the feasible corridor;
+        the exact geometry keeps it open.
       </p>
       <div class="hero-actions">
-        <a class="btn primary" href="#fig3">Explore Fig.&nbsp;3</a>
+        <a class="btn primary" href="#corridor">Explore the corridor</a>
         <a class="btn ghost" href="#scenarios">Watch scenarios</a>
-        <a class="btn ghost" href="https://github.com/sail-knu/Exact-Geometry-MPC-CBF-for-Autonomous-Boat-Docking-in-Narrow-Slips" target="_blank" rel="noopener">GitHub</a>
       </div>
     </div>
   </header>
 
   <main>
-    <section id="fig3" class="section fig3">
+    <section id="corridor" class="section">
       <div class="section-head">
-        <h2>Fig.&nbsp;3 · Admissible vessel-centre region</h2>
+        <p class="kicker">Interactive</p>
+        <h2>Where the vessel centre is still allowed to sit</h2>
         <p>
-          Drag the boat on the left to set heading. The right panel updates the
-          constrained centre region of each footprint inside a fixed 1.10&nbsp;m slip.
+          At a fixed heading, each curve is the boundary of centre positions
+          that keep that footprint inside a 1.10&nbsp;m slip with a 5&nbsp;cm
+          safety margin. A circle or disc cover inflates the hull, so the
+          corridor narrows—or vanishes. The exact polygon keeps the widest
+          feasible space. Drag the hull to change heading; the corridors
+          update with it.
         </p>
       </div>
 
       <div class="fig3-grid">
         <div class="panel boat-panel">
-          <div class="panel-label">Heading · drag to rotate</div>
+          <div class="panel-label">Hull heading · drag to rotate</div>
           <canvas id="boat-canvas" width="520" height="520" aria-label="Rotatable boat top view"></canvas>
           <div class="heading-readout">
             <span>θ = <strong id="theta-deg">0</strong>°</span>
@@ -49,19 +63,20 @@
         </div>
 
         <div class="panel map-panel">
-          <div class="panel-label">Constrained centre region · <span id="slip-label">1.10 m slip</span></div>
+          <div class="panel-label">Feasible centre corridor · <span id="slip-label">1.10 m slip</span></div>
           <canvas id="map-canvas" width="720" height="520" aria-label="Admissible centre map"></canvas>
           <div class="legend" id="model-legend"></div>
         </div>
       </div>
     </section>
 
-    <section id="scenarios" class="section scenarios">
+    <section id="scenarios" class="section">
       <div class="section-head">
-        <h2>Closed-loop scenarios</h2>
+        <p class="kicker">Closed loop</p>
+        <h2>Five docking scenarios, six controllers</h2>
         <p>
-          Five representative cases from the paper. Compare every controller on
-          the same initial condition; play / pause keeps the grid in sync.
+          The same initial condition, compared side by side. Play / pause
+          keeps the grid in sync.
         </p>
       </div>
 
@@ -75,16 +90,6 @@
       </div>
 
       <div class="video-grid" id="video-grid"></div>
-    </section>
-
-    <section class="section cite">
-      <div class="section-head">
-        <h2>Code &amp; citation</h2>
-        <p>
-          Source and assets for this page live in the
-          <a href="https://github.com/sail-knu/Exact-Geometry-MPC-CBF-for-Autonomous-Boat-Docking-in-Narrow-Slips">sail-knu project repository</a>.
-        </p>
-      </div>
     </section>
   </main>
 

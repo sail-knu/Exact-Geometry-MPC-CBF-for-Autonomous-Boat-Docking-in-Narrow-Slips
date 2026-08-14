@@ -138,21 +138,21 @@ function drawBoatPanel() {
   const psi = (thetaDeg * Math.PI) / 180;
 
   boatCtx.clearRect(0, 0, w, h);
-  // water disc
-  const grd = boatCtx.createRadialGradient(cx, cy, 20, cx, cy, scale * 2.4);
-  grd.addColorStop(0, "#d9ebf2");
-  grd.addColorStop(1, "#b7ced8");
+  boatCtx.fillStyle = "#0b0b0b";
+  boatCtx.fillRect(0, 0, w, h);
+  const grd = boatCtx.createRadialGradient(cx, cy, 16, cx, cy, scale * 2.5);
+  grd.addColorStop(0, "#151515");
+  grd.addColorStop(1, "#0b0b0b");
   boatCtx.fillStyle = grd;
   boatCtx.fillRect(0, 0, w, h);
 
-  // compass ring
-  boatCtx.strokeStyle = "rgba(16,33,43,0.18)";
+  boatCtx.strokeStyle = "rgba(118,185,0,0.22)";
   boatCtx.lineWidth = 1;
   boatCtx.beginPath();
   boatCtx.arc(cx, cy, scale * 1.85, 0, Math.PI * 2);
   boatCtx.stroke();
-  boatCtx.fillStyle = "rgba(16,33,43,0.55)";
-  boatCtx.font = "13px Sora, sans-serif";
+  boatCtx.fillStyle = "#a3a3a3";
+  boatCtx.font = "600 12px Inter, sans-serif";
   boatCtx.textAlign = "center";
   boatCtx.fillText("bow →", cx + Math.cos(psi) * scale * 2.05, cy - Math.sin(psi) * scale * 2.05);
 
@@ -175,15 +175,14 @@ function drawBoatPanel() {
   }
 
   drawPolygon(boatCtx, rotatePoints(data.hull, psi), scale, cx, cy, {
-    fill: "rgba(16,33,43,0.88)",
-    stroke: "#0b161c",
-    width: 1.2,
+    fill: "#1c1c1c",
+    stroke: "#76b900",
+    width: 1.6,
   });
 
-  // heading handle
   const hx = cx + Math.cos(psi) * scale * 1.55;
   const hy = cy - Math.sin(psi) * scale * 1.55;
-  boatCtx.fillStyle = "#0b6e4f";
+  boatCtx.fillStyle = "#76b900";
   boatCtx.beginPath();
   boatCtx.arc(hx, hy, 7, 0, Math.PI * 2);
   boatCtx.fill();
@@ -218,10 +217,9 @@ function drawMapPanel() {
   const key = nearestContourKey(thetaDeg);
 
   mapCtx.clearRect(0, 0, w, h);
-  mapCtx.fillStyle = "#eaf3f7";
+  mapCtx.fillStyle = "#0b0b0b";
   mapCtx.fillRect(0, 0, w, h);
 
-  // obstacles
   for (const obs of data.obstacles) {
     mapCtx.beginPath();
     obs.forEach(([x, y], i) => {
@@ -230,9 +228,9 @@ function drawMapPanel() {
       else mapCtx.lineTo(px, py);
     });
     mapCtx.closePath();
-    mapCtx.fillStyle = "#b0b6bd";
+    mapCtx.fillStyle = "#2a2a2a";
     mapCtx.fill();
-    mapCtx.strokeStyle = "#3c4148";
+    mapCtx.strokeStyle = "#4a4a4a";
     mapCtx.lineWidth = 1;
     mapCtx.stroke();
   }
@@ -264,8 +262,8 @@ function drawMapPanel() {
     }
   }
 
-  mapCtx.fillStyle = "rgba(16,33,43,0.55)";
-  mapCtx.font = "12px Sora, sans-serif";
+  mapCtx.fillStyle = "#a3a3a3";
+  mapCtx.font = "600 12px Inter, sans-serif";
   mapCtx.fillText(`θ = ${Math.round(thetaDeg)}°`, 16, h - 16);
   const [ax, ay] = toPix(2.55, -1.95);
   mapCtx.fillText("x → slip", ax - 52, ay);
@@ -431,8 +429,8 @@ async function main() {
 
 main().catch((err) => {
   console.error(err);
-  document.getElementById("fig3").insertAdjacentHTML(
+  document.getElementById("corridor").insertAdjacentHTML(
     "beforeend",
-    `<p style="color:#9b3b2d">Could not load corridor data. Run <code>python scripts/export_project_page_fig3.py</code>.</p>`
+    `<p style="color:#ff5c5c">Could not load corridor data. Run <code>python scripts/export_project_page_fig3.py</code>.</p>`
   );
 });

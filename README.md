@@ -1,7 +1,8 @@
 # Exact-Geometry MPC-CBF for Autonomous Boat Docking in Narrow Slips
 
-Project page for the paper: interactive **Fig.&nbsp;3** (admissible vessel-centre
-regions vs heading) and synchronized closed-loop videos for scenarios **S1–S5**.
+Project page: an interactive **feasible-centre corridor** (how heading and
+footprint geometry change where the vessel may sit) and synchronized
+closed-loop videos for scenarios **S1–S5**.
 
 ## Live page
 
@@ -20,7 +21,7 @@ python -m http.server 8000
 | Path | Description |
 |------|-------------|
 | `index.html` / `app.js` / `styles.css` | Interactive project page |
-| `data/fig3.json` | Precomputed Fig.&nbsp;3 contours (every 3°) |
+| `data/fig3.json` | Precomputed feasible-centre contours (every 3°) |
 | `videos/` | Review videos: 5 scenarios × 6 controllers |
 
 ## Regenerate Fig.&nbsp;3 data
