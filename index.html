@@ -13,6 +13,7 @@
     <div class="top-links">
       <a href="#corridor">Corridor</a>
       <a href="#scenarios">Scenarios</a>
+      <a href="#sweep">Sweep</a>
       <a href="https://github.com/sail-knu/Exact-Geometry-MPC-CBF-for-Autonomous-Boat-Docking-in-Narrow-Slips" target="_blank" rel="noopener">GitHub</a>
     </div>
   </nav>
@@ -82,6 +83,22 @@
       </div>
 
       <div class="video-grid" id="video-grid"></div>
+    </section>
+
+    <section id="sweep" class="section">
+      <div class="section-head">
+        <h2>Narrow-slip sweep</h2>
+        <p>
+          Thirty randomized entries at each of ten slip widths.
+          Every controller shares the same horizon and cost; only the
+          footprint changes. Success collapses at the geometric bound
+          of that footprint.
+        </p>
+      </div>
+      <div class="panel sweep-panel">
+        <canvas id="sweep-canvas" width="920" height="420" aria-label="Success rate versus slip width"></canvas>
+        <div class="legend" id="sweep-legend"></div>
+      </div>
     </section>
   </main>
 

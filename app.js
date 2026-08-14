@@ -401,6 +401,101 @@ function buildScenarioUI() {
   renderVideos();
 }
 
+async function loadSweep() {
+  const res = await fetch("data/sweep.json");
+  if (!res.ok) return;
+  const data = await res.json();
+  const canvas = document.getElementById("sweep-canvas");
+  const legend = document.getElementById("sweep-legend");
+  if (!canvas || !legend) return;
+  legend.innerHTML = "";
+  for (const curve of data.curves) {
+    const item = document.createElement("span");
+    const sw = document.createElement("span");
+    sw.className = "swatch";
+    sw.style.color = curve.color;
+    item.append(sw, document.createTextNode(curve.label));
+    legend.append(item);
+  }
+  const draw = () => drawSweep(canvas, data);
+  draw();
+  window.addEventListener("resize", draw);
+}
+
+function drawSweep(canvas, data) {
+  const dpr = window.devicePixelRatio || 1;
+  const cssW = canvas.clientWidth || 920;
+  const cssH = Math.max(280, Math.round(cssW * 0.42));
+  canvas.width = Math.round(cssW * dpr);
+  canvas.height = Math.round(cssH * dpr);
+  const ctx = canvas.getContext("2d");
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  const pad = { l: 52, r: 18, t: 18, b: 42 };
+  const w = cssW - pad.l - pad.r;
+  const h = cssH - pad.t - pad.b;
+  const xMin = Math.min(...data.widths);
+  const xMax = Math.max(...data.widths);
+  const xOf = (x) => pad.l + ((x - xMin) / (xMax - xMin)) * w;
+  const yOf = (pct) => pad.t + (1 - pct / 100) * h;
+
+  ctx.clearRect(0, 0, cssW, cssH);
+  ctx.strokeStyle = "rgba(0,0,0,0.08)";
+  ctx.lineWidth = 1;
+  ctx.font = "12px -apple-system, BlinkMacSystemFont, sans-serif";
+  ctx.fillStyle = "#6e6e73";
+  for (const tick of [0, 25, 50, 75, 100]) {
+    const y = yOf(tick);
+    ctx.beginPath();
+    ctx.moveTo(pad.l, y);
+    ctx.lineTo(pad.l + w, y);
+    ctx.stroke();
+    ctx.textAlign = "right";
+    ctx.fillText(`${tick}`, pad.l - 8, y + 4);
+  }
+  ctx.textAlign = "center";
+  for (const width of data.widths) {
+    ctx.fillText(width.toFixed(2), xOf(width), cssH - 16);
+  }
+  ctx.fillText("slip width [m]", pad.l + w * 0.5, cssH - 2);
+  ctx.save();
+  ctx.translate(14, pad.t + h * 0.5);
+  ctx.rotate(-Math.PI / 2);
+  ctx.fillText("success [%]", 0, 0);
+  ctx.restore();
+
+  for (const bound of data.bounds) {
+    const x = xOf(bound.width);
+    ctx.strokeStyle = bound.color;
+    ctx.globalAlpha = 0.35;
+    ctx.setLineDash([3, 4]);
+    ctx.beginPath();
+    ctx.moveTo(x, pad.t);
+    ctx.lineTo(x, pad.t + h);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.globalAlpha = 1;
+  }
+
+  for (const curve of data.curves) {
+    ctx.strokeStyle = curve.color;
+    ctx.lineWidth = curve.label === "proposed" ? 2.4 : 1.6;
+    ctx.beginPath();
+    curve.rates.forEach((rate, i) => {
+      const x = xOf(data.widths[i]);
+      const y = yOf(rate);
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+    ctx.fillStyle = curve.color;
+    curve.rates.forEach((rate, i) => {
+      ctx.beginPath();
+      ctx.arc(xOf(data.widths[i]), yOf(rate), 3.2, 0, Math.PI * 2);
+      ctx.fill();
+    });
+  }
+}
+
 async function main() {
   const res = await fetch(DATA_URL);
   if (!res.ok) throw new Error(`Failed to load ${DATA_URL}`);
@@ -410,6 +505,7 @@ async function main() {
   wireBoatDrag();
   setTheta(0);
   buildScenarioUI();
+  loadSweep();
 
   // gentle auto-spin hint once
   let t0 = performance.now();
