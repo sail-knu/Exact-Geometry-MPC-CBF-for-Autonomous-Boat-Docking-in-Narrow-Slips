@@ -22,6 +22,7 @@ python -m http.server 8000
 |------|-------------|
 | `index.html` / `app.js` / `styles.css` | Interactive project page |
 | `data/fig3.json` | Precomputed feasible-centre contours (every 3°) |
+| `data/sweep.json` | Narrow-slip sweep success rates (1800 runs) |
 | `videos/` | Review videos: 5 scenarios × 6 controllers |
 
 ## Regenerate Fig.&nbsp;3 data

@@ -40,24 +40,24 @@ const SCENARIOS = [
 
 const OUTCOMES = {
   "S1-fairway-g1.0": {
-    circle: "deadlock", ellipse: "dock 14.0 s", "3disc": "dock 11.5 s",
-    "6disc": "dock 11.0 s", "polygon-dc": "dock 16.0 s", "polygon-cbf": "dock 10.5 s",
+    circle: "deadlock", ellipse: "dock 13.5 s", "3disc": "dock 12.5 s",
+    "6disc": "dock 10.5 s", "polygon-dc": "dock 16.5 s", "polygon-cbf": "dock 10.5 s",
   },
   "S2-aligned-g1.0": {
-    circle: "deadlock", ellipse: "deadlock", "3disc": "dock 13.0 s",
-    "6disc": "dock 10.5 s", "polygon-dc": "dock 11.0 s", "polygon-cbf": "dock 11.0 s",
+    circle: "deadlock", ellipse: "dock 10.5 s", "3disc": "deadlock",
+    "6disc": "dock 15.0 s", "polygon-dc": "dock 10.5 s", "polygon-cbf": "dock 11.0 s",
   },
   "S3-aligned-g0.5": {
-    circle: "deadlock", ellipse: "dock 14.0 s", "3disc": "deadlock",
-    "6disc": "dock 14.5 s", "polygon-dc": "dock 10.0 s", "polygon-cbf": "dock 11.0 s",
+    circle: "deadlock", ellipse: "dock 16.0 s", "3disc": "deadlock",
+    "6disc": "dock 15.0 s", "polygon-dc": "dock 11.0 s", "polygon-cbf": "dock 12.5 s",
   },
   "S4-aligned-g0.25": {
     circle: "deadlock", ellipse: "deadlock", "3disc": "deadlock",
-    "6disc": "deadlock", "polygon-dc": "dock 14.0 s", "polygon-cbf": "dock 13.5 s",
+    "6disc": "deadlock", "polygon-dc": "dock 17.0 s", "polygon-cbf": "dock 18.5 s",
   },
   "S5-hard-g0.35": {
     circle: "deadlock", ellipse: "deadlock", "3disc": "deadlock",
-    "6disc": "deadlock", "polygon-dc": "dock 9.5 s", "polygon-cbf": "dock 9.5 s",
+    "6disc": "deadlock", "polygon-dc": "dock 9.0 s", "polygon-cbf": "dock 10.0 s",
   },
 };
 
@@ -334,7 +334,7 @@ function wireBoatDrag() {
 }
 
 function videoSrc(scenarioId, controllerFile) {
-  return `videos/${scenarioId}__${controllerFile}.mp4?v=20260814b`;
+  return `videos/${scenarioId}__${controllerFile}.mp4?v=20260814c`;
 }
 
 function buildScenarioUI() {
